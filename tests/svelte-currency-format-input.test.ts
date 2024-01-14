@@ -27,8 +27,8 @@ test.describe('CurrencyInput', () => {
 
 	test('Default behavior is correct', async ({ page }) => {
 		// Test field with "zero" value
-		const colonUnformattedInput = page.locator('.currencyInput__unformatted[name=colon]');
-		const colonFormattedInput = page.locator('.currencyInput__formatted[name="formatted-colon"]');
+		const colonUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=colon]');
+		const colonFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-colon"]');
 		await expect(colonUnformattedInput).not.toBeDisabled();
 		await expect(colonUnformattedInput).toHaveAttribute('type', 'hidden');
 		await expect(colonUnformattedInput).toHaveValue('0');
@@ -36,13 +36,13 @@ test.describe('CurrencyInput', () => {
 		await expect(colonFormattedInput).toHaveValue('');
 		await expect(colonFormattedInput).toHaveAttribute('type', 'text');
 		await expect(colonFormattedInput).toHaveAttribute('placeholder', '₡0,00');
-		await expect(colonFormattedInput).not.toHaveClass(/currencyInput__formatted--positive/);
-		await expect(colonFormattedInput).not.toHaveClass(/currencyInput__formatted--negative/);
-		await expect(colonFormattedInput).toHaveClass(/currencyInput__formatted--zero/);
+		await expect(colonFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--positive/);
+		await expect(colonFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--negative/);
+		await expect(colonFormattedInput).toHaveClass(/currencyFormatInput__formatted--zero/);
 
 		// Test field with "positive" value
-		const yenUnformattedInput = page.locator('.currencyInput__unformatted[name=yen]');
-		const yenFormattedInput = page.locator('.currencyInput__formatted[name="formatted-yen"]');
+		const yenUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=yen]');
+		const yenFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-yen"]');
 		await expect(yenUnformattedInput).not.toBeDisabled();
 		await expect(yenUnformattedInput).toHaveAttribute('type', 'hidden');
 		await expect(yenUnformattedInput).toHaveValue('5678.9');
@@ -50,14 +50,14 @@ test.describe('CurrencyInput', () => {
 		await expect(yenFormattedInput).toHaveValue('¥5,678.90');
 		await expect(yenFormattedInput).toHaveAttribute('type', 'text');
 		await expect(yenFormattedInput).toHaveAttribute('placeholder', '¥0.00');
-		await expect(yenFormattedInput).toHaveClass(/currencyInput__formatted--positive/);
-		await expect(yenFormattedInput).not.toHaveClass(/currencyInput__formatted--negative/);
-		await expect(yenFormattedInput).not.toHaveClass(/currencyInput__formatted--zero/);
+		await expect(yenFormattedInput).toHaveClass(/currencyFormatInput__formatted--positive/);
+		await expect(yenFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--negative/);
+		await expect(yenFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--zero/);
 
 		// Test field with "negative" value
-		const defaultUnformattedInput = page.locator('.currencyInput__unformatted[name=default]');
+		const defaultUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=default]');
 		const defaultFormattedInput = page.locator(
-			'.currencyInput__formatted[name="formatted-default"]'
+			'.currencyFormatInput__formatted[name="formatted-default"]'
 		);
 		await expect(yenUnformattedInput).not.toBeDisabled();
 		await expect(defaultUnformattedInput).toHaveAttribute('type', 'hidden');
@@ -66,13 +66,13 @@ test.describe('CurrencyInput', () => {
 		await expect(defaultFormattedInput).toHaveValue('-$42,069.69');
 		await expect(defaultFormattedInput).toHaveAttribute('type', 'text');
 		await expect(defaultFormattedInput).toHaveAttribute('placeholder', '$0.00');
-		await expect(defaultFormattedInput).not.toHaveClass(/currencyInput__formatted--positive/);
-		await expect(defaultFormattedInput).toHaveClass(/currencyInput__formatted--negative/);
-		await expect(defaultFormattedInput).not.toHaveClass(/currencyInput__formatted--zero/);
+		await expect(defaultFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--positive/);
+		await expect(defaultFormattedInput).toHaveClass(/currencyFormatInput__formatted--negative/);
+		await expect(defaultFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--zero/);
 
 		// Test field that is "disabled"
-		const shekelUnformattedInput = page.locator('.currencyInput__unformatted[name=shekel]');
-		const shekelFormattedInput = page.locator('.currencyInput__formatted[name="formatted-shekel"]');
+		const shekelUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=shekel]');
+		const shekelFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-shekel"]');
 		await expect(shekelUnformattedInput).toBeDisabled();
 		await expect(shekelUnformattedInput).toHaveAttribute('type', 'hidden');
 		await expect(shekelUnformattedInput).toHaveValue('97532.95');
@@ -80,9 +80,9 @@ test.describe('CurrencyInput', () => {
 		await expect(shekelFormattedInput).toBeDisabled();
 		await expect(shekelFormattedInput).toHaveAttribute('type', 'text');
 		await expect(shekelFormattedInput).toHaveAttribute('placeholder', '₪0.00');
-		await expect(shekelFormattedInput).toHaveClass(/currencyInput__formatted--positive/);
-		await expect(shekelFormattedInput).not.toHaveClass(/currencyInput__formatted--negative/);
-		await expect(shekelFormattedInput).not.toHaveClass(/currencyInput__formatted--zero/);
+		await expect(shekelFormattedInput).toHaveClass(/currencyFormatInput__formatted--positive/);
+		await expect(shekelFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--negative/);
+		await expect(shekelFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--zero/);
 
 		// Submitting a form returns the correct values
 		const demoSubmitForm = page.locator('button.demoForm__submit');
@@ -123,8 +123,8 @@ test.describe('CurrencyInput', () => {
 	test('Updating an input has the correct behavior', async ({ page }) => {
 		await waitForInitialLoad(page);
 
-		const colonUnformattedInput = page.locator('.currencyInput__unformatted[name=colon]');
-		const colonFormattedInput = page.locator('.currencyInput__formatted[name="formatted-colon"]');
+		const colonUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=colon]');
+		const colonFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-colon"]');
 
 		// Check the there is no value in the input
 		await expect(colonUnformattedInput).toHaveValue('0');
@@ -134,18 +134,18 @@ test.describe('CurrencyInput', () => {
 		await page.keyboard.type('420,69', { delay: DELAY_FOR_FORMATTED_VALUE_IN_MS });
 		await expect(colonFormattedInput).toHaveValue('₡420,69');
 		await expect(colonUnformattedInput).toHaveValue('420.69');
-		await expect(colonFormattedInput).toHaveClass(/currencyInput__formatted--positive/);
-		await expect(colonFormattedInput).not.toHaveClass(/currencyInput__formatted--negative/);
-		await expect(colonFormattedInput).not.toHaveClass(/currencyInput__formatted--zero/);
+		await expect(colonFormattedInput).toHaveClass(/currencyFormatInput__formatted--positive/);
+		await expect(colonFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--negative/);
+		await expect(colonFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--zero/);
 
 		// Use arrow keys to go back to the first character
 		for (let i = 0; i < '₡420,69'.length; i++) await page.keyboard.press('ArrowLeft');
 		await page.keyboard.type('-');
 		await expect(colonFormattedInput).toHaveValue('-₡420,69');
 		await expect(colonUnformattedInput).toHaveValue('-420.69');
-		await expect(colonFormattedInput).not.toHaveClass(/currencyInput__formatted--positive/);
-		await expect(colonFormattedInput).toHaveClass(/currencyInput__formatted--negative/);
-		await expect(colonFormattedInput).not.toHaveClass(/currencyInput__formatted--zero/);
+		await expect(colonFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--positive/);
+		await expect(colonFormattedInput).toHaveClass(/currencyFormatInput__formatted--negative/);
+		await expect(colonFormattedInput).not.toHaveClass(/currencyFormatInput__formatted--zero/);
 
 		// Use right arrow keys to position cusror at the end of the input
 		for (let i = 0; i < '₡420,69'.length; i++) await page.keyboard.press('ArrowRight');
@@ -172,8 +172,8 @@ test.describe('CurrencyInput', () => {
 	});
 
 	test("Incorrect characters can't be entered", async ({ page }) => {
-		const colonUnformattedInput = page.locator('.currencyInput__unformatted[name=colon]');
-		const colonFormattedInput = page.locator('.currencyInput__formatted[name="formatted-colon"]');
+		const colonUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=colon]');
+		const colonFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-colon"]');
 
 		// Check the there is no value in the input
 		await expect(colonUnformattedInput).toHaveValue('0');
@@ -216,25 +216,25 @@ test.describe('CurrencyInput', () => {
 	test('Placeholders can be overriden', async ({ page }) => {
 		// Default placeholder
 		const defaultFormattedInput = page.locator(
-			'.currencyInput__formatted[name="formatted-default"]'
+			'.currencyFormatInput__formatted[name="formatted-default"]'
 		);
 		await expect(defaultFormattedInput).toHaveAttribute('placeholder', '$0.00');
 
 		// Null placeholder
-		const poundFormattedInput = page.locator('.currencyInput__formatted[name="formatted-pound"]');
+		const poundFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-pound"]');
 		await expect(poundFormattedInput).toHaveAttribute('placeholder', '');
 
 		// Overriden placeholder
-		const wonFormattedInput = page.locator('.currencyInput__formatted[name="formatted-won"]');
+		const wonFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-won"]');
 		await expect(wonFormattedInput).toHaveAttribute('placeholder', '₩1,234.56');
 	});
 
 	test('Fraction digits can be overriden', async ({ page }) => {
 		await waitForInitialLoad(page);
 
-		const bitcoinUnformattedInput = page.locator('.currencyInput__unformatted[name=bitcoin]');
+		const bitcoinUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=bitcoin]');
 		const bitcoinFormattedInput = page.locator(
-			'.currencyInput__formatted[name="formatted-bitcoin"]'
+			'.currencyFormatInput__formatted[name="formatted-bitcoin"]'
 		);
 
 		await expect(bitcoinUnformattedInput).toHaveValue('0.87654321');
@@ -258,8 +258,8 @@ test.describe('CurrencyInput', () => {
 		test('Pressing "." gets converted to ","', async ({ page }) => {
 			await waitForInitialLoad(page);
 
-			const euroFormattedInput = page.locator('.currencyInput__formatted[name="formatted-euro"]');
-			const euroUnformattedInput = page.locator('.currencyInput__unformatted[name=euro]');
+			const euroFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-euro"]');
+			const euroUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=euro]');
 			await euroFormattedInput.focus();
 
 			await selectAll(page);
@@ -275,9 +275,9 @@ test.describe('CurrencyInput', () => {
 		test('Pressing "," gets converted to "."', async ({ page }) => {
 			await waitForInitialLoad(page);
 
-			const bitcoinUnformattedInput = page.locator('.currencyInput__unformatted[name=bitcoin]');
+			const bitcoinUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=bitcoin]');
 			const bitcoinFormattedInput = page.locator(
-				'.currencyInput__formatted[name="formatted-bitcoin"]'
+				'.currencyFormatInput__formatted[name="formatted-bitcoin"]'
 			);
 
 			await bitcoinFormattedInput.focus();
@@ -293,9 +293,9 @@ test.describe('CurrencyInput', () => {
 	});
 
 	test('Formatting is applied on:blur', async ({ page }) => {
-		const euroFormattedInput = page.locator('.currencyInput__formatted[name="formatted-euro"]');
-		const euroUnformattedInput = page.locator('.currencyInput__unformatted[name=euro]');
-		const colonFormattedInput = page.locator('.currencyInput__formatted[name="formatted-colon"]');
+		const euroFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-euro"]');
+		const euroUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=euro]');
+		const colonFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-colon"]');
 
 		// The old value should remain because `-` doesn't override it
 		await euroFormattedInput.focus();
@@ -319,7 +319,7 @@ test.describe('CurrencyInput', () => {
 	test('Pressing Tab has the correct behavior', async ({ page }, testInfo) => {
 		// Tabbing in Webkit is broken: https://github.com/Canutin/svelte-currency-input/issues/40
 		if (testInfo.project.name !== 'webkit') {
-			const formattedInputs = page.locator('.currencyInput__formatted');
+			const formattedInputs = page.locator('.currencyFormatInput__formatted');
 			expect(await formattedInputs.count()).toBe(12);
 
 			await formattedInputs.first().focus();
@@ -354,13 +354,13 @@ test.describe('CurrencyInput', () => {
 		const customUnformattedClass = page.locator('.custom-unformatted-class');
 
 		await expect(customWrapperClass).toBeVisible();
-		await expect(customWrapperClass).toHaveClass(/currencyInput/); // We don't override the default class
+		await expect(customWrapperClass).toHaveClass(/currencyFormatInput/); // We don't override the default class
 		await expect(customUnformattedClass).toHaveValue('0');
-		await expect(customUnformattedClass).not.toHaveClass(/currencyInput__unformatted/); // We override the default class
+		await expect(customUnformattedClass).not.toHaveClass(/currencyFormatInput__unformatted/); // We override the default class
 	});
 
 	test('A callback function is fired when value changes', async ({ page }) => {
-		const pesosFormattedInput = page.locator('.currencyInput__formatted[name="formatted-pesos"]');
+		const pesosFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-pesos"]');
 
 		// Prepare to assert and accept dialog
 		page.on('dialog', (dialog) => {
@@ -375,13 +375,13 @@ test.describe('CurrencyInput', () => {
 	});
 
 	test('Autocomplete attribute can be set', async ({ page }) => {
-		const pesosFormattedInput = page.locator('.currencyInput__formatted[name="formatted-pesos"]');
+		const pesosFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-pesos"]');
 		await expect(pesosFormattedInput).toHaveAttribute('autocomplete', 'off');
 	});
 
 	test('A value with zero cents and more than 1 fraction digits gets formatted on blur', async ({ page }) => {
-		const rupeesFormattedInput = page.locator('.currencyInput__formatted[name="formatted-rupees"]');
-		const rupeesUnformattedInput = page.locator('.currencyInput__unformatted[name="rupees"]');
+		const rupeesFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-rupees"]');
+		const rupeesUnformattedInput = page.locator('.currencyFormatInput__unformatted[name="rupees"]');
 		await expect(rupeesFormattedInput).toHaveValue('₹678.000');
 		await expect(rupeesUnformattedInput).toHaveValue('678');
 
@@ -398,22 +398,22 @@ test.describe('CurrencyInput', () => {
 	});
 
 	test("isZeroNullish doesn't render placeholder when the value is 0", async ({ page }) => {
-		const solesUnformattedInput = page.locator('.currencyInput__unformatted[name="soles"]');
-		const solesFormattedInput = page.locator('.currencyInput__formatted[name="formatted-soles"]');
+		const solesUnformattedInput = page.locator('.currencyFormatInput__unformatted[name="soles"]');
+		const solesFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-soles"]');
 		await expect(solesUnformattedInput).toHaveValue('0');
 		await expect(solesFormattedInput).toHaveValue('S/ 0.00');
 		await expect(solesFormattedInput).toHaveAttribute('placeholder', '');
 
-		const colonUnformattedInput = page.locator('.currencyInput__unformatted[name=colon]');
-		const colonFormattedInput = page.locator('.currencyInput__formatted[name="formatted-colon"]');
+		const colonUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=colon]');
+		const colonFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-colon"]');
 		await expect(colonUnformattedInput).toHaveValue('0');
 		await expect(colonFormattedInput).not.toHaveValue('₡0,00');
 		await expect(colonFormattedInput).toHaveAttribute('placeholder', '₡0,00');
 	});
 
 	test("A custom placeholder can be set", async ({ page }) => {
-		const dinarsUnformattedInput = page.locator('.currencyInput__unformatted[name="dinars"]');
-		const dinarsFormattedInput = page.locator('.currencyInput__formatted[name="formatted-dinars"]');
+		const dinarsUnformattedInput = page.locator('.currencyFormatInput__unformatted[name="dinars"]');
+		const dinarsFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-dinars"]');
 		await expect(dinarsUnformattedInput).toHaveValue('0');
 		await expect(dinarsFormattedInput).toHaveValue('');
 		await expect(dinarsFormattedInput).toHaveAttribute('placeholder', 'How many Dinars?');
@@ -421,8 +421,8 @@ test.describe('CurrencyInput', () => {
 
 	test('Prevent duplicated decimal points', async ({ page }) => {
 		// Periods as decimals
-		const poundUnformattedInput = page.locator('.currencyInput__unformatted[name=pound]');
-		const poundFormattedInput = page.locator('.currencyInput__formatted[name="formatted-pound"]');
+		const poundUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=pound]');
+		const poundFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-pound"]');
 		await expect(poundUnformattedInput).toHaveValue('1234.56');
 		await expect(poundFormattedInput).toHaveValue('£1,234.56');
 
@@ -432,8 +432,8 @@ test.describe('CurrencyInput', () => {
 		await expect(poundFormattedInput).toHaveValue('£1,234.56');
 
 		// Commas as decimals
-		const colonUnformattedInput = page.locator('.currencyInput__unformatted[name=colon]');
-		const colonFormattedInput = page.locator('.currencyInput__formatted[name="formatted-colon"]');
+		const colonUnformattedInput = page.locator('.currencyFormatInput__unformatted[name=colon]');
+		const colonFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-colon"]');
 		await expect(colonUnformattedInput).toHaveValue('0');
 		await expect(colonFormattedInput).toHaveValue('');
 
@@ -443,8 +443,8 @@ test.describe('CurrencyInput', () => {
 		await expect(colonFormattedInput).toHaveValue('₡123,');
 
 		// Pressing multiple commas when locale for decimals is a period
-		const dinarsUnformattedInput = page.locator('.currencyInput__unformatted[name="dinars"]');
-		const dinarsFormattedInput = page.locator('.currencyInput__formatted[name="formatted-dinars"]');
+		const dinarsUnformattedInput = page.locator('.currencyFormatInput__unformatted[name="dinars"]');
+		const dinarsFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-dinars"]');
 		await expect(dinarsUnformattedInput).toHaveValue('0');
 		await expect(dinarsFormattedInput).toHaveValue('');
 
@@ -456,15 +456,15 @@ test.describe('CurrencyInput', () => {
 
 	test("inputmode is set correctly based on fractionDigits", async ({ page }) => {
 		// fractionDigits == undefined (defaults to 2)
-		const solesFormattedInput = page.locator('.currencyInput__formatted[name="formatted-soles"]');
+		const solesFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-soles"]');
 		await expect(solesFormattedInput).toHaveAttribute('inputmode', 'decimal');
 
 		// fractionDigits == 3
-		const rupeesFormattedInput = page.locator('.currencyInput__formatted[name="formatted-rupees"]');
+		const rupeesFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-rupees"]');
 		await expect(rupeesFormattedInput).toHaveAttribute('inputmode', 'decimal');
 
 		// fractionDigits == 0
-		const dinarsFormattedInput = page.locator('.currencyInput__formatted[name="formatted-dinars"]');
+		const dinarsFormattedInput = page.locator('.currencyFormatInput__formatted[name="formatted-dinars"]');
 		await expect(dinarsFormattedInput).toHaveAttribute('inputmode', 'numeric');
 	});
 

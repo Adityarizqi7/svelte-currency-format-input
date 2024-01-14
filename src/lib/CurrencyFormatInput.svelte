@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	const DEFAULT_VALUE = 0;
+	const DEFAULT_NAME = 'total';
 	const DEFAULT_LOCALE = 'en-US';
 	const DEFAULT_CURRENCY = 'USD';
-	const DEFAULT_NAME = 'total';
-	const DEFAULT_VALUE = 0;
 	const DEFAULT_FRACTION_DIGITS = 2;
 
-	const DEFAULT_CLASS_WRAPPER = 'currencyInput';
-	const DEFAULT_CLASS_UNFORMATTED = 'currencyInput__unformatted';
-	const DEFAULT_CLASS_FORMATTED = 'currencyInput__formatted';
-	const DEFAULT_CLASS_FORMATTED_POSITIVE = 'currencyInput__formatted--positive';
-	const DEFAULT_CLASS_FORMATTED_NEGATIVE = 'currencyInput__formatted--negative';
-	const DEFAULT_CLASS_FORMATTED_ZERO = 'currencyInput__formatted--zero';
+	const DEFAULT_CLASS_WRAPPER = 'currencyFormatInput';
+	const DEFAULT_CLASS_UNFORMATTED = 'currencyFormatInput__unformatted';
+	const DEFAULT_CLASS_FORMATTED = 'currencyFormatInput__formatted';
+	const DEFAULT_CLASS_FORMATTED_POSITIVE = 'currencyFormatInput__formatted--positive';
+	const DEFAULT_CLASS_FORMATTED_NEGATIVE = 'currencyFormatInput__formatted--negative';
+	const DEFAULT_CLASS_FORMATTED_ZERO = 'currencyFormatInput__formatted--zero';
 
 	interface InputClasses {
 		wrapper?: string;
@@ -57,7 +57,7 @@
 
 	// Verifies whether the pressed key is permissible.
 	const handleKeyDown = (event: KeyboardEvent) => {
-		const isDeletion = event.key === 'Backspace' || event.key === 'Delete';
+		const isDeleted = event.key === 'Backspace' || event.key === 'Delete';
 		const isModifier = event.metaKey || event.altKey || event.ctrlKey;
 		const isArrowKey = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
 		const isTab = event.key === 'Tab';
@@ -73,17 +73,17 @@
 
 		if (
 			isPunctuationDuplicated() ||
-			(!isDeletion && !isModifier && !isArrowKey && isInvalidCharacter && !isTab)
+			(!isDeleted && !isModifier && !isArrowKey && isInvalidCharacter && !isTab)
 		)
 			event.preventDefault();
 	};
 
 	// Adjusts the formatting of the value when the input loses focus and ensures the appropriate number of 
 	// decimal places when the value is zero.
-	const handleOnBlur = () => setFormattedValue(true);
+	const handleOnBlur = () => setFormattedValueInput(true);
 
 	// Additionally, establish the correct number of decimal places when the value is zero upon the initial load.
-	onMount(() => setFormattedValue(true));
+	onMount(() => setFormattedValueInput(true));
 
 	let inputTarget: HTMLInputElement;
 	const currencyDecimal = new Intl.NumberFormat(locale).format(1.1).charAt(1); // '.' or ','
@@ -93,7 +93,7 @@
 		.replace(/\u00A0/, ''); // e.g '0 €' > '€'
 
 	// Updates the value by removing the currency formatting.
-	const setUnformattedValue = (event?: KeyboardEvent) => {
+	const setUnformattedValueInput = (event?: KeyboardEvent) => {
 		if (event) {
 			// Don't format if the user is typing a `currencyDecimal` point
 			if (event.key === currencyDecimal) return;
@@ -143,13 +143,13 @@
 					unformattedValue.includes('.') &&
 					unformattedValue.split('.')[1].length > fractionDigits
 				) {
-					setFormattedValue(false);
+					setFormattedValueInput(false);
 				}
 			}
 		}
 	};
 
-	const setFormattedValue = (hasMinFractionDigits?: boolean) => {
+	const setFormattedValueInput = (hasMinFractionDigits?: boolean) => {
 		// Previous caret position
 		const startCaretPosition = inputTarget?.selectionStart || 0;
 		const previousFormattedValueLength = formattedValue.length;
@@ -158,7 +158,7 @@
 		formattedValue = isZero && !isZeroNullish ? '' : formatCurrency(value, fractionDigits, hasMinFractionDigits ? fractionDigits : 0);
 
 		// Update `value` after formatting
-		setUnformattedValue();
+		setUnformattedValueInput();
 
 		let retries = 0;
 		while (previousFormattedValueLength === formattedValue.length && retries < 10) retries++;
@@ -173,7 +173,7 @@
 		onValueChange(value);
 	};
 
-	const handlePlaceholder = (placeholder: string | number | null) => {
+	const handleCustomPlaceholder = (placeholder: string | number | null) => {
 		if (typeof placeholder === "number") return formatCurrency(placeholder, fractionDigits, fractionDigits);
 		if (placeholder === null) return "";
 		return placeholder;
@@ -183,7 +183,7 @@
 	$: isNegative = value < 0;
 	$: isPositive = value > 0;
 	$: isZero = !isNegative && !isPositive;
-	$: value, setFormattedValue(false);
+	$: value, setFormattedValueInput(false);
 </script>
 
 <div class={inputClasses?.wrapper ?? DEFAULT_CLASS_WRAPPER}>
@@ -206,40 +206,40 @@
 			? inputClasses?.formattedNegative ?? DEFAULT_CLASS_FORMATTED_NEGATIVE
 			: ''}
 		"
-		type="text"
-		inputmode={fractionDigits > 0 ? "decimal" : "numeric"}
-		name={`formatted-${name}`}
-		required={required && !isZero}
-		placeholder={handlePlaceholder(placeholder)}
-		{autocomplete}
 		{disabled}
+		type="text"
+		{autocomplete}
+		name={`formatted-${name}`}
 		bind:value={formattedValue}
-		on:keydown={handleKeyDown}
-		on:keyup={setUnformattedValue}
+		required={required && !isZero}
+		inputmode={fractionDigits > 0 ? "decimal" : "numeric"}
+		placeholder={handleCustomPlaceholder(placeholder)}
 		on:blur={handleOnBlur}
+		on:keydown={handleKeyDown}
+		on:keyup={setUnformattedValueInput}
 	/>
 </div>
 
 <style>
-	input.currencyInput__formatted {
+	input.currencyFormatInput__formatted {
 		padding: 10px;
 		box-sizing: border-box;
 		border: 1px solid #e2e2e2;
 	}
 
-	input.currencyInput__formatted--zero {
+	input.currencyFormatInput__formatted--zero {
 		color: #333;
 	}
 
-	input.currencyInput__formatted--positive {
+	input.currencyFormatInput__formatted--positive {
 		color: #00a36f;
 	}
 
-	input.currencyInput__formatted--negative {
+	input.currencyFormatInput__formatted--negative {
 		color: #e75258;
 	}
 
-	input.currencyInput__formatted:disabled {
+	input.currencyFormatInput__formatted:disabled {
 		color: #999;
 		cursor: default;
 		pointer-events: none;

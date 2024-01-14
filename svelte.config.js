@@ -1,6 +1,5 @@
-import adapter from '@sveltejs/adapter-netlify';
+import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-// import cloudFlare from '@sveltejs/adapter-cloudflare';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -8,10 +7,7 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 
-	adapter: adapter({
-		edge: false,
-		split: true
-	})
+	adapter: adapter()
 };
 
 export default config;

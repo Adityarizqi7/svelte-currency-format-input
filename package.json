@@ -1,5 +1,5 @@
 {
-  "name": "@adityarizqi/svelte-currency-input",
+  "name": "@adityarizqi/svelte-currency-format-input",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite dev",

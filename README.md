@@ -150,7 +150,7 @@ npm run dev -- --open
 #### Integration tests
 
 The component is tested using [Playwright](https://playwright.dev/).
-You can find the tests in [`tests/svelte-currency-input.test.ts`](https://github.com/Adityarizqi7/svelte-currency-format-input/blob/main/tests/svelte-currency-input.test.ts)
+You can find the tests in [`tests/svelte-currency-format-input.test.ts`](https://github.com/Adityarizqi7/svelte-currency-format-input/blob/main/tests/svelte-currency-format-input.test.ts)
 
 To run all tests on **Chromium**, **Firefox** and **Webkit**:
 ```bash

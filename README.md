@@ -18,7 +18,7 @@ npm install @adityarizqi/svelte-currency-format-input --save
 
 or if you are using yarn
 
-yarn add @vhiweb/munio-client-js
+yarn add @adityarizqi/svelte-currency-format-input
 ```
 
 Then you need to import this library into your application.

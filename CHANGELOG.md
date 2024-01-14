@@ -9,3 +9,6 @@
 - Update documentation package at readme.md.
 - Change some name class of input element at testing file.
 - Refactor function, props, classes, variables name for better.
+
+## v1.1.1 - [2024-01-14]
+- Update documentation package at readme.md.

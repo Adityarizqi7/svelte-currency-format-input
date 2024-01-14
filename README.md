@@ -1,4 +1,4 @@
-# svelte-currency-input
+# svelte-currency-format-input
 
 An interactive form input that instantly transforms numerical entries into localized currency formats while you type
 

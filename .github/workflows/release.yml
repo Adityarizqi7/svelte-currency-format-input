@@ -1,0 +1,23 @@
+name: Test, build & release
+
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  release:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        run: npm ci
+      - name: Build package with SvelteKit
+        run: npm run package
+      - name: Run semantic release
+        run: npx semantic-release --branches main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

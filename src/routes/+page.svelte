@@ -27,7 +27,7 @@
 			</a>
 			<a
 				class="demo__a"
-				href="https://www.npmjs.com/package/@danardhana/svelte-currency-format-input"
+				href="https://www.npmjs.com/package/@adityarizqi/svelte-currency-format-input"
 				target="_blank">
 				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256"><path fill="#C12127" d="M0 256V0h256v256z"/><path fill="#FFF" d="M48 48h160v160h-32V80h-48v128H48z"/></svg>
 			</a>

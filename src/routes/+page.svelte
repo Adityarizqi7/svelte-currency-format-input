@@ -17,7 +17,7 @@
 	<nav class="demo__nav">
 		<div class="demo__nav-heading">
 			<h1 class="demo__h1">svelte-currency-format-input</h1>
-			<h6 style="text-align: center; font-size: 12px; color: #666; font-weight: 400; margin-top: 15px; margin-bottom: 10px;">
+			<h6 style="text-align: center; font-size: 14px; color: #666; font-weight: 400; margin-top: 15px; margin-bottom: 10px;">
 				An interactive form input that instantly transforms numerical entries into localized currency formats while you type.
 			</h6>
 		</div>
@@ -128,9 +128,9 @@
 	</nav>
 </form>
 
-<style>
+<style lang="css">
 	/* Overriding the styles of the <CurrencyFormatInput /> component */
-	form.demo :global(input.currencyInput__formatted) {
+	form.demo :global(input.currencyFormatInput__formatted) {
 		width: 100%;
 		color: black;
 		font-size: 13px;
@@ -143,30 +143,11 @@
 	}
 
 	/* Styles for demo presentation (you can ignore these) */
-	:global(body) {
-		--gap: 100px;
 
-		margin: 0;
-		display: flex;
-		align-items: center;
-		place-items: center;
-		padding: var(--gap);
-		box-sizing: border-box;
-		justify-content: center;
-		background-color: #fafafa;
-		font-family: Helvetica, sans-serif;
-
-		@media (max-width: 768px) {
-			--gap: 48px;
-		}
-
-		@media (max-width: 512px) {
-			--gap: 32px;
-		}
-
-		@media (max-width: 411px) {
-			min-height: auto;
-		}
+	form.demo {
+		margin: 0 auto;
+		max-width: 800px;
+		padding: 20px;
 	}
 
 	.demo__nav {
@@ -211,6 +192,7 @@
 	div.demo__wrapper-item label {
 		color: #000;
 		font-weight: 600;
+		line-height: 1.45;
 		margin-bottom: 12px;
 		display: inline-block;
 	}
@@ -230,9 +212,10 @@
 		background-color: #1e40af;
 	}
 	nav.demo__output {
+		width: 100% !important;
 		margin-top: 2rem;
 	}
-
+	
 	pre.demo__pre {
 		color: #666;
 		padding: 10px;
@@ -240,7 +223,6 @@
 		overflow-y: auto;
 		margin-top: 1rem;
 		border-radius: 10px;
-		box-sizing: border-box;
 		background-color: white;
 		box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px;
 	}
@@ -248,5 +230,11 @@
 	pre.demo__pre--placeholder {
 		font-size: 13px;
 		font-family: Helvetica, sans-serif;
+	}
+
+	@media (max-width: 325px) {
+		.demo__wrapper-item { 
+			grid-template-columns: repeat(1, minmax(0, 1fr)) !important; 
+		}
 	}
 </style>

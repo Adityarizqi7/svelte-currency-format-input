@@ -14,3 +14,6 @@
 - Update documentation package at readme.md.
 ## v1.1.2 - [2024-01-14]
 - Update package node module and build package.
+## v1.1.3 - [2024-01-15]
+- Styling demo page.
+- Addd attribute id at unformatted input.

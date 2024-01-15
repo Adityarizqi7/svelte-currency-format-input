@@ -12,3 +12,5 @@
 
 ## v1.1.1 - [2024-01-14]
 - Update documentation package at readme.md.
+## v1.1.2 - [2024-01-14]
+- Update package node module and build package.

@@ -1,6 +1,6 @@
 {
   "name": "@adityarizqi/svelte-currency-format-input",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -40,6 +40,7 @@
     "publint": "^0.2.5",
     "sass": "^1.69.0",
     "semantic-release": "^19.0.5",
+    "svelte": "^4.2.8",
     "svelte-check": "^3.4.3",
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",

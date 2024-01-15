@@ -188,6 +188,7 @@
 
 <div class={inputClasses?.wrapper ?? DEFAULT_CLASS_WRAPPER}>
 	<input
+		id={id}
 		class={inputClasses?.unformatted ?? DEFAULT_CLASS_UNFORMATTED}
 		type="hidden"
 		{name}
